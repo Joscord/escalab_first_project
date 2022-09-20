@@ -17,7 +17,8 @@ const fetchGifs = async (query = '') => {
 	}
 	const response = await fetch(endpoint);
 	const data = await response.json();
-	return data;
+	localStorage.setItem('gifs', JSON.stringify(data));
+	displayGifs();
 };
 
 const displayGifs = async () => {
@@ -30,20 +31,10 @@ const displayGifs = async () => {
 	});
 };
 
-const fetchTrendingGifs = async () => {
-	const gifs = await fetchGifs();
-	localStorage.setItem('gifs', JSON.stringify(gifs));
-	displayGifs();
-};
+window.addEventListener('load', () => fetchGifs());
 
-const fetchGifsByInput = async e => {
+searchForm.addEventListener('submit', e => {
 	e.preventDefault();
-	const query = searchInput.value;
-	const gifs = await fetchGifs(query);
-	localStorage.setItem('gifs', JSON.stringify(gifs));
-	displayGifs();
-};
-
-window.addEventListener('load', fetchTrendingGifs);
-
-searchForm.addEventListener('submit', fetchGifsByInput);
+	fetchGifs(searchInput.value);
+	searchInput.value = '';
+});
