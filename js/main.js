@@ -3,8 +3,9 @@ const API_KEY = 'GEJ0G4itd91z4CZDGfzcwTh1ybhX4dvk';
 const BASE_URL = 'https://api.giphy.com/v1/gifs/';
 
 // HTML ELEMENTS
-searchInput = document.getElementById('search');
+searchInput = document.getElementById('search-input');
 gifsDiv = document.getElementById('gifs');
+searchForm = document.getElementById('search-form');
 
 // FUNCTIONS
 const fetchGifs = async (query = '') => {
@@ -35,4 +36,14 @@ const fetchTrendingGifs = async () => {
 	displayGifs();
 };
 
+const fetchGifsByInput = async e => {
+	e.preventDefault();
+	const query = searchInput.value;
+	const gifs = await fetchGifs(query);
+	localStorage.setItem('gifs', JSON.stringify(gifs));
+	displayGifs();
+};
+
 window.addEventListener('load', fetchTrendingGifs);
+
+searchForm.addEventListener('submit', fetchGifsByInput);
