@@ -25,7 +25,7 @@ const displayGifs = async () => {
 	gifs.data.map(gif => {
 		const gifElement = document.createElement('img');
 		gifElement.setAttribute('src', gif.images.original.webp);
-		gifsDiv.appendChild(gifImg);
+		gifsDiv.appendChild(gifElement);
 	});
 };
 
