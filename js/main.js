@@ -23,15 +23,15 @@ const displayGifs = async () => {
 	gifsDiv.innerHTML = '';
 	gifs = JSON.parse(localStorage.getItem('gifs'));
 	gifs.data.map(gif => {
-		const gifImg = document.createElement('img');
-		gifImg.src = gif.images.original.webp;
-		main.appendChild(gifImg);
+		const gifElement = document.createElement('img');
+		gifElement.setAttribute('src', gif.images.original.webp);
+		gifsDiv.appendChild(gifImg);
 	});
 };
 
 const fetchTrendingGifs = async () => {
 	const gifs = await fetchGifs();
-	localStorage.setItem('gifs', gifs);
+	localStorage.setItem('gifs', JSON.stringify(gifs));
 	displayGifs();
 };
 
