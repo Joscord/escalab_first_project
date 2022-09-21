@@ -7,6 +7,7 @@ searchInput = document.getElementById('search-input');
 gifsDiv = document.getElementById('gifs');
 searchForm = document.getElementById('search-form');
 searchList = document.getElementById('search-list');
+searchButton = document.getElementById('search-button');
 
 // FUNCTIONS
 const fetchGifs = async (query = '') => {
@@ -70,10 +71,16 @@ const populateSearchList = () => {
 	});
 };
 
+// Event Listeners
 window.addEventListener('load', () => fetchGifs());
 
 searchForm.addEventListener('submit', e => {
 	e.preventDefault();
+	fetchGifs(searchInput.value.trim());
+	searchInput.value = '';
+});
+
+searchButton.addEventListener('click', () => {
 	fetchGifs(searchInput.value.trim());
 	searchInput.value = '';
 });
