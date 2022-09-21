@@ -23,15 +23,14 @@
 	</head>
 	<body>
 		<header>
-			<h1 id="main-title">Gif Explorer</h1>
-			<h2 id="main-subtitle">Find awesome gifs</h2>
+			<h1 id="main-title" class="text-center">Gif Explorer</h1>
+			<p id="main-subtitle" class="text-center lead">Find awesome gifs</p>
 		</header>
 		<main>
-			<form id="search-form">
-				<label for="search-input">Search Gif</label>
+			<form id="search-form" class="text-center">
 				<input id="search-input" />
+				<button id="search-button" class="btn btn-info">Search</button>
 			</form>
-			<button id="search-button">Search</button>
 			<ul id="search-list"></ul>
 			<div id="gifs"></div>
 			<div id="error"></div>
