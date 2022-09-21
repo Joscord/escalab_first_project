@@ -83,6 +83,7 @@ const populateSearchList = () => {
 		queryElement.setAttribute('class', 'list-group-item text-center');
 		queryElement.addEventListener('click', e => {
 			e.preventDefault();
+			globalQuery = query;
 			fetchGifs(query.trim());
 		});
 		searchList.appendChild(queryElement);
@@ -119,7 +120,6 @@ searchForm.addEventListener('submit', e => {
 	e.preventDefault();
 	inputQuery = searchInput.value.trim();
 	globalQuery = inputQuery;
-	queryFlag = true;
 	fetchGifs(inputQuery);
 	searchInput.value = '';
 });
@@ -128,9 +128,6 @@ searchButton.addEventListener('click', e => {
 	e.preventDefault();
 	inputQuery = searchInput.value.trim();
 	globalQuery = inputQuery;
-	queryFlag = true;
 	fetchGifs(inputQuery);
 	searchInput.value = '';
 });
-
-// Crear una variable que permita identificar si los gifs vienen de una query o no
