@@ -9,6 +9,9 @@ searchButton = document.getElementById('search-button');
 errorDiv = document.getElementById('error');
 errorIconDiv = document.getElementById('error-icon');
 
+let offset = 0;
+let limit = 6;
+
 const fetchGifs = async (query = '') => {
 	let endpoint = '';
 	if (JSON.parse(localStorage.getItem('queries'))) {
@@ -17,7 +20,7 @@ const fetchGifs = async (query = '') => {
 	if (query) {
 		endpoint = `${BASE_URL}search?api_key=${API_KEY}&q=${query}&limit=25&offset=0&rating=g&lang=en`;
 	} else {
-		endpoint = `${BASE_URL}trending?api_key=${API_KEY}&limit=25&rating=g`;
+		endpoint = `${BASE_URL}trending?api_key=${API_KEY}&limit=${limit}&offset=${offset}&rating=g`;
 	}
 	try {
 		const response = await fetch(endpoint);
@@ -32,7 +35,9 @@ const fetchGifs = async (query = '') => {
 		if (query) {
 			checkQueries(query);
 			populateSearchList();
+			gifsDiv.innerHTML = '';
 		}
+		console.log(endpoint);
 		handleErrors();
 		displayGifs();
 	} catch (error) {
@@ -41,7 +46,6 @@ const fetchGifs = async (query = '') => {
 };
 
 const displayGifs = async () => {
-	gifsDiv.innerHTML = '';
 	gifs = JSON.parse(localStorage.getItem('gifs'));
 	gifs.data.map(gif => {
 		const gifElement = document.createElement('img');
@@ -96,6 +100,14 @@ const handleErrors = (error = '') => {
 	}
 };
 
+const loadMoreGifs = async () => {
+	if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+		offset += 12;
+		limit += 6;
+		await fetchGifs();
+	}
+};
+
 window.addEventListener('load', () => fetchGifs());
 
 searchForm.addEventListener('submit', e => {
@@ -109,3 +121,5 @@ searchButton.addEventListener('click', e => {
 	fetchGifs(searchInput.value.trim());
 	searchInput.value = '';
 });
+
+window.addEventListener('scroll', loadMoreGifs);
