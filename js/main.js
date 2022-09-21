@@ -14,7 +14,6 @@ let globalQuery = '';
 
 const fetchGifs = async (query = '') => {
 	let endpoint = '';
-	console.log(globalQuery);
 	if (JSON.parse(localStorage.getItem('queries'))) {
 		populateSearchList();
 	}
