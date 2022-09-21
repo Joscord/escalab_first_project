@@ -1,15 +1,12 @@
-// API CONSTANTS
 const API_KEY = 'GEJ0G4itd91z4CZDGfzcwTh1ybhX4dvk';
 const BASE_URL = 'https://api.giphy.com/v1/gifs/';
 
-// HTML ELEMENTS
 searchInput = document.getElementById('search-input');
 gifsDiv = document.getElementById('gifs');
 searchForm = document.getElementById('search-form');
 searchList = document.getElementById('search-list');
 searchButton = document.getElementById('search-button');
 
-// FUNCTIONS
 const fetchGifs = async (query = '') => {
 	let endpoint = '';
 	if (JSON.parse(localStorage.getItem('queries'))) {
@@ -71,7 +68,6 @@ const populateSearchList = () => {
 	});
 };
 
-// Event Listeners
 window.addEventListener('load', () => fetchGifs());
 
 searchForm.addEventListener('submit', e => {
