@@ -17,14 +17,25 @@ const fetchGifs = async (query = '') => {
 	} else {
 		endpoint = `${BASE_URL}trending?api_key=${API_KEY}&limit=25&rating=g`;
 	}
-	const response = await fetch(endpoint);
-	const data = await response.json();
-	localStorage.setItem('gifs', JSON.stringify(data));
-	if (query) {
-		checkQueries(query);
-		populateSearchList();
+	try {
+		const response = await fetch(endpoint);
+		if (response.status != 200) {
+			throw new Error('Something when wrong');
+		}
+		const data = await response.json();
+		if (!data.data.length) {
+			throw new Error("Your search didn't return any gif");
+		}
+		localStorage.setItem('gifs', JSON.stringify(data));
+		if (query) {
+			checkQueries(query);
+			populateSearchList();
+		}
+		displayGifs();
+	} catch (error) {
+		console.log('hubo un error');
+		console.log(error);
 	}
-	displayGifs();
 };
 
 const displayGifs = async () => {
