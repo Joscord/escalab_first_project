@@ -72,6 +72,7 @@ const populateSearchList = () => {
 	queries.map(query => {
 		const queryElement = document.createElement('li');
 		queryElement.innerHTML = query;
+		queryElement.setAttribute('class', 'list-group-item');
 		queryElement.addEventListener('click', e => {
 			e.preventDefault();
 			fetchGifs(query.trim());
@@ -102,6 +103,7 @@ searchForm.addEventListener('submit', e => {
 });
 
 searchButton.addEventListener('click', () => {
+	e.preventDefault();
 	fetchGifs(searchInput.value.trim());
 	searchInput.value = '';
 });
