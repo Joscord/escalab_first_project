@@ -19,6 +19,7 @@
     cursor: pointer;
 }
 
-#search-button, #search-input {
-    display: inline;
+#error {
+    color: red;
+    font-size: 20px;
 }

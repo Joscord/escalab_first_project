@@ -6,6 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./assets/styles.css" />
 		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+			crossorigin="anonymous"
+		/>
+
+		<link
 			rel="stylesheet"
 			href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
 			integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
@@ -15,11 +22,11 @@
 		<title>Gif Explorer</title>
 	</head>
 	<body>
-		<main>
+		<header>
 			<h1 id="main-title">Gif Explorer</h1>
 			<h2 id="main-subtitle">Find awesome gifs</h2>
-		</main>
-		<article>
+		</header>
+		<main>
 			<form id="search-form">
 				<label for="search-input">Search Gif</label>
 				<input id="search-input" />
@@ -28,7 +35,12 @@
 			<ul id="search-list"></ul>
 			<div id="gifs"></div>
 			<div id="error"></div>
-		</article>
+		</main>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+			crossorigin="anonymous"
+		></script>
 		<script src="./js/main.js" />
 	</body>
 </html>
