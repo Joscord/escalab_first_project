@@ -6,6 +6,7 @@ gifsDiv = document.getElementById('gifs');
 searchForm = document.getElementById('search-form');
 searchList = document.getElementById('search-list');
 searchButton = document.getElementById('search-button');
+errorDiv = document.getElementById('error');
 
 const fetchGifs = async (query = '') => {
 	let endpoint = '';
@@ -20,7 +21,7 @@ const fetchGifs = async (query = '') => {
 	try {
 		const response = await fetch(endpoint);
 		if (response.status != 200) {
-			throw new Error('Something when wrong');
+			throw new Error('Something went wrong while trying to fetch your gifs');
 		}
 		const data = await response.json();
 		if (!data.data.length) {
@@ -31,10 +32,10 @@ const fetchGifs = async (query = '') => {
 			checkQueries(query);
 			populateSearchList();
 		}
+		handleErrors();
 		displayGifs();
 	} catch (error) {
-		console.log('hubo un error');
-		console.log(error);
+		handleErrors(error);
 	}
 };
 
@@ -77,6 +78,19 @@ const populateSearchList = () => {
 		});
 		searchList.appendChild(queryElement);
 	});
+};
+
+const handleErrors = (error = '') => {
+	if (error) {
+		console.log('running');
+		console.log('error');
+		gifsDiv.innerHTML = '';
+		errorDiv.innerHTML = error;
+		errorDiv.setAttribute('style', 'display: block');
+	} else {
+		errorDiv.innerHTML = '';
+		errorDiv.setAttribute('style', 'display: none');
+	}
 };
 
 window.addEventListener('load', () => fetchGifs());
