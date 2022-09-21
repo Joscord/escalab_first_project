@@ -11,6 +11,9 @@ searchList = document.getElementById('search-list');
 // FUNCTIONS
 const fetchGifs = async (query = '') => {
 	let endpoint = '';
+	if (JSON.parse(localStorage.getItem('queries'))) {
+		populateSearchList();
+	}
 	if (query) {
 		endpoint = `${BASE_URL}search?api_key=${API_KEY}&q=${query}&limit=25&offset=0&rating=g&lang=en`;
 	} else {
@@ -21,6 +24,7 @@ const fetchGifs = async (query = '') => {
 	localStorage.setItem('gifs', JSON.stringify(data));
 	if (query) {
 		checkQueries(query);
+		populateSearchList();
 	}
 	displayGifs();
 };
@@ -50,6 +54,20 @@ const checkQueries = query => {
 		}
 		localStorage.setItem('queries', JSON.stringify(queries));
 	}
+};
+
+const populateSearchList = () => {
+	searchList.innerHTML = '';
+	const queries = JSON.parse(localStorage.getItem('queries'));
+	queries.map(query => {
+		const queryElement = document.createElement('li');
+		queryElement.innerHTML = query;
+		queryElement.addEventListener('click', e => {
+			e.preventDefault();
+			fetchGifs(query);
+		});
+		searchList.appendChild(queryElement);
+	});
 };
 
 window.addEventListener('load', () => fetchGifs());
