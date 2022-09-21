@@ -45,6 +45,7 @@ const displayGifs = async () => {
 	gifs.data.map(gif => {
 		const gifElement = document.createElement('img');
 		gifElement.setAttribute('src', gif.images.original.webp);
+		gifElement.setAttribute('class', 'col');
 		gifsDiv.appendChild(gifElement);
 	});
 };
@@ -72,7 +73,7 @@ const populateSearchList = () => {
 	queries.map(query => {
 		const queryElement = document.createElement('li');
 		queryElement.innerHTML = query;
-		queryElement.setAttribute('class', 'list-group-item');
+		queryElement.setAttribute('class', 'list-group-item text-center');
 		queryElement.addEventListener('click', e => {
 			e.preventDefault();
 			fetchGifs(query.trim());
