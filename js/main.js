@@ -8,15 +8,21 @@ searchList = document.getElementById('search-list');
 searchButton = document.getElementById('search-button');
 errorDiv = document.getElementById('error');
 
+let limit = 10;
+
+let globalQuery = '';
+
 const fetchGifs = async (query = '') => {
 	let endpoint = '';
+	console.log(globalQuery);
 	if (JSON.parse(localStorage.getItem('queries'))) {
 		populateSearchList();
 	}
+
 	if (query) {
-		endpoint = `${BASE_URL}search?api_key=${API_KEY}&q=${query}&limit=25&offset=0&rating=g&lang=en`;
+		endpoint = `${BASE_URL}search?api_key=${API_KEY}&q=${query}&limit=${limit}&offset=0&rating=g&lang=en`;
 	} else {
-		endpoint = `${BASE_URL}trending?api_key=${API_KEY}&limit=25&offset=0&rating=g`;
+		endpoint = `${BASE_URL}trending?api_key=${API_KEY}&limit=${limit}&offset=0&rating=g`;
 	}
 	try {
 		const response = await fetch(endpoint);
@@ -34,6 +40,7 @@ const fetchGifs = async (query = '') => {
 		}
 		handleErrors();
 		displayGifs();
+		queryFlag = false;
 	} catch (error) {
 		handleErrors(error);
 	}
@@ -93,16 +100,37 @@ const handleErrors = (error = '') => {
 	}
 };
 
+const loadMoreGifs = async () => {
+	if (window.innerHeight + window.scrollY > document.body.offsetHeight) {
+		limit += 2;
+		if (globalQuery) {
+			await fetchGifs(globalQuery);
+		} else {
+			await fetchGifs();
+		}
+	}
+};
+
 window.addEventListener('load', () => fetchGifs());
+
+window.addEventListener('scroll', loadMoreGifs);
 
 searchForm.addEventListener('submit', e => {
 	e.preventDefault();
-	fetchGifs(searchInput.value.trim());
+	inputQuery = searchInput.value.trim();
+	globalQuery = inputQuery;
+	queryFlag = true;
+	fetchGifs(inputQuery);
 	searchInput.value = '';
 });
 
 searchButton.addEventListener('click', e => {
 	e.preventDefault();
-	fetchGifs(searchInput.value.trim());
+	inputQuery = searchInput.value.trim();
+	globalQuery = inputQuery;
+	queryFlag = true;
+	fetchGifs(inputQuery);
 	searchInput.value = '';
 });
+
+// Crear una variable que permita identificar si los gifs vienen de una query o no
