@@ -64,7 +64,7 @@ const populateSearchList = () => {
 		queryElement.innerHTML = query;
 		queryElement.addEventListener('click', e => {
 			e.preventDefault();
-			fetchGifs(query);
+			fetchGifs(query.trim());
 		});
 		searchList.appendChild(queryElement);
 	});
@@ -74,6 +74,6 @@ window.addEventListener('load', () => fetchGifs());
 
 searchForm.addEventListener('submit', e => {
 	e.preventDefault();
-	fetchGifs(searchInput.value);
+	fetchGifs(searchInput.value.trim());
 	searchInput.value = '';
 });
