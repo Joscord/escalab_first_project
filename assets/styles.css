@@ -1,0 +1,24 @@
+#main-title {
+    color:coral;
+    font-weight: bold;
+    margin: 0px;
+}
+
+#main-subtitle {
+    font-style: italic;
+    color: blueviolet;
+    font-size: 20px;
+    margin: 0px 0px 20px 0px;
+}
+
+#search-list {
+    list-style-type: none;
+}
+
+#search-list:hover {
+    cursor: pointer;
+}
+
+#search-button, #search-input {
+    display: inline;
+}
