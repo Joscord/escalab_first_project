@@ -27,7 +27,9 @@ const fetchGifs = async (query = '') => {
 	try {
 		const response = await fetch(endpoint);
 		if (response.status != 200) {
-			throw new Error('Something went wrong while trying to fetch your gifs');
+			throw new Error(
+				`Something went wrong while trying to fetch your gifs (Status Code: ${response.status}).`
+			);
 		}
 		const data = await response.json();
 		if (!data.data.length) {
