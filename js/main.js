@@ -84,8 +84,6 @@ const populateSearchList = () => {
 
 const handleErrors = (error = '') => {
 	if (error) {
-		console.log('running');
-		console.log('error');
 		gifsDiv.innerHTML = '';
 		errorDiv.innerHTML = error;
 		errorDiv.setAttribute('style', 'display: block');
