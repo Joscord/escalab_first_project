@@ -7,6 +7,7 @@ searchForm = document.getElementById('search-form');
 searchList = document.getElementById('search-list');
 searchButton = document.getElementById('search-button');
 errorDiv = document.getElementById('error');
+errorIconDiv = document.getElementById('error-icon');
 
 const fetchGifs = async (query = '') => {
 	let endpoint = '';
@@ -87,9 +88,11 @@ const handleErrors = (error = '') => {
 		gifsDiv.innerHTML = '';
 		errorDiv.innerHTML = error;
 		errorDiv.setAttribute('style', 'display: block');
+		errorIconDiv.setAttribute('style', 'display: block');
 	} else {
 		errorDiv.innerHTML = '';
 		errorDiv.setAttribute('style', 'display: none');
+		errorIconDiv.setAttribute('style', 'display: none');
 	}
 };
 
@@ -101,7 +104,7 @@ searchForm.addEventListener('submit', e => {
 	searchInput.value = '';
 });
 
-searchButton.addEventListener('click', () => {
+searchButton.addEventListener('click', e => {
 	e.preventDefault();
 	fetchGifs(searchInput.value.trim());
 	searchInput.value = '';
